@@ -3,6 +3,7 @@ package org.example.datageneratormicroservice.config;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,9 +14,10 @@ import java.io.FileNotFoundException;
 public class BeanConfig {
 
     @Bean
-    public XML producerXML() throws FileNotFoundException {
+    @SneakyThrows
+    public XML producerXML() {
         return new XMLDocument(
-                new File("src/main/resources/kafka/producer.xml")
+                getClass().getResourceAsStream("/kafka/producer.xml").readAllBytes()
         );
     }
 }
